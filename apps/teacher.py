@@ -15,7 +15,7 @@ bp = Blueprint("teacher", __name__, url_prefix="/teacher")
 
 # post到 IP/teacher/enter_course json包含token,course_code
 @bp.route('/enter_course', methods=['GET'])
-def teacher_enter_course():
+def teacher_enter_course()->json:
     try:
         token = request.headers.get("token")
         user = tokenVerify(token, "teacher")
@@ -38,7 +38,7 @@ def teacher_enter_course():
 
 # post到 IP/teacher/query json包含token, datetime_start, datetime_end, course_id, return_type = "json" / "excel"
 @bp.route('/query', methods = ['GET'])
-def teacher_query():
+def teacher_query()->json:
     try:
         token = request.headers.get("token")
         user = tokenVerify(token, "teacher")

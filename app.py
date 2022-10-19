@@ -21,7 +21,7 @@ app.register_blueprint(teacher_bp)
 
 # post一个json, 包含 email, password, user_type 三项
 @app.route('/login', methods = ['GET', 'POST'])
-def login():
+def login()->json:
     if request.method == 'GET':
         return render_template("login.html")
     else:
@@ -44,7 +44,7 @@ def login():
 
 
 @app.route("/")
-def index():
+def index()->str:
     return "主页"
 
 

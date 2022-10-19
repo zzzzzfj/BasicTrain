@@ -1,3 +1,6 @@
+# SSH上传
+* ```git push git@github.com:zzzzzfj/BasicTrain.git```
+
 # 后端接口说明
 
 * token 

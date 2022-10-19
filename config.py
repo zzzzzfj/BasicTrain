@@ -12,7 +12,7 @@ JSON_AS_ASCII = False
 # database
 HOSTNAME = '172.17.0.1' # 服务器网桥模式
 
-if __file__ == '/Users/behaver/Developer/Python/BasicTrainingProject/config.py':
+if __file__ == '/Users/behaver/Developer/Python/BasicTrain/config.py':
     HOSTNAME = '127.0.0.1' # 本地
 PORT = '3306'
 DATABASE = 'basictrain'

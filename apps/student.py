@@ -15,7 +15,7 @@ bp = Blueprint("student", __name__, url_prefix="/student")
 
 # post到 IP/student/enter_course json包含course_code
 @bp.route('/enter_course', methods=['GET'])
-def student_enter_course():
+def student_enter_course()->json:
     try:
         token = request.headers.get("token")
         course_code = request.args.get("course_code")
@@ -39,7 +39,7 @@ def student_enter_course():
 
 # post到 IP/student/comment json包含token,course_id,grade
 @bp.route('/comment', methods = ['POST'])
-def student_comment():
+def student_comment()->json:
     try:
         token = request.headers.get("token")
         data = request.get_data()

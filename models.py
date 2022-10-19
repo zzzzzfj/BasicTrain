@@ -6,7 +6,7 @@
 
 # 数据库的表设计
 from exts import db
-from sqlalchemy.orm import scoped_session, sessionmaker
+# from sqlalchemy.orm import scoped_session, sessionmaker
 
 # engine = db.get_engine()
 # db_session = scoped_session(sessionmaker(autocommit=True,

@@ -7,7 +7,7 @@
 from models import User
 
 
-def tokenVerify(token: str, user_type: str=None):
+def tokenVerify(token: str, user_type: str=None) -> User:
     user = User.query.filter_by(id=token).first()
     if user==None or user_type!=None and user_type != user.user_type:
         return None
