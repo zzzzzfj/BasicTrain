@@ -2,37 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8ea93af2-033b-4381-bf6e-eb0df7c28456" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/BasicTrain.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/src.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Dockerfile" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apps/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apps/student.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/apps/teacher.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/exts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/gunicorn.conf.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migrations/README" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migrations/alembic.ini" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migrations/env.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migrations/script.py.mako" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migrations/versions/4240ed4f83ef_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/migrations/versions/4959e345eda2_.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/temporary_file/statistic.xls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/verify/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/verify/token.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,14 +12,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/student.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            <state relative-caret-position="312">
+              <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
               <folding>
                 <element signature="e#103#151#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor>
+                <caret column="8" selection-start-column="8" selection-end-column="8" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -104,6 +86,7 @@
         <option value="$PROJECT_DIR$/verify/token.py" />
         <option value="$PROJECT_DIR$/apps/teacher.py" />
         <option value="$PROJECT_DIR$/apps/student.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -129,6 +112,21 @@
             <path>
               <item name="BasicTrain" type="b2602c69:ProjectViewProjectNode" />
               <item name="BasicTrain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="BasicTrain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+            </path>
+            <path>
+              <item name="BasicTrain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+            </path>
+            <path>
+              <item name="BasicTrain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="Extensions" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
+              <item name="com.intellij.database" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
             </path>
           </expand>
           <select />
@@ -247,12 +245,12 @@
       <workItem from="1666097805092" duration="445000" />
       <workItem from="1666099310150" duration="29000" />
       <workItem from="1666099351406" duration="25000" />
-      <workItem from="1666159987241" duration="322000" />
+      <workItem from="1666159987241" duration="1570000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83157000" />
+    <option name="totallyTimeSpent" value="84405000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -267,21 +265,21 @@
     <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49352333" visible="true" weight="0.05202542" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49352333" visible="true" weight="0.06592534" />
       <window_info id="Structure" order="1" sideWeight="0.5064767" side_tool="true" weight="0.07631258" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32997844" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.13443565" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.13443565" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32967034" />
-      <window_info anchor="bottom" id="Docker" order="7" weight="0.32967034" />
+      <window_info anchor="bottom" id="Docker" order="7" weight="0.3292595" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.22877122" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.22861251" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32997844" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -421,11 +419,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/student.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+        <state relative-caret-position="312">
+          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
           <folding>
             <element signature="e#103#151#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor>
+            <caret column="8" selection-start-column="8" selection-end-column="8" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
