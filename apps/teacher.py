@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-#@Time : 10/10/22 11:17 PM
-#@Author : 知北游
-#@File : teacher.py
-#@Software : PyCharm
+# @Time : 10/10/22 11:17 PM
+# @Author : 知北游
+# @File : teacher.py
+# @Software : PyCharm
 
-from flask import Blueprint,request,jsonify,json,send_file
+from flask import Blueprint, request, jsonify, json, send_file
 from models import User, Expression, Course
 from exts import db
 from verify import tokenVerify
@@ -15,34 +15,33 @@ bp = Blueprint("teacher", __name__, url_prefix="/teacher")
 
 # post到 IP/teacher/enter_course json包含token,course_code
 @bp.route('/enter_course', methods=['GET'])
-def teacher_enter_course()->json:
+def teacher_enter_course() -> json:
     try:
         token = request.headers.get("token")
         user = tokenVerify(token, "teacher")
-        if(user == None):
-                return jsonify({"status": "error", "data": {"info": "没有这个教师或您不是教师!"}})
+        if user is None:
+            return jsonify({"status": "error", "data": {"info": "没有这个老师或您不是老师!"}})
         course_code = request.args.get("course_code")
-        print(token)
         course = Course.query.filter_by(course_code=course_code).first()
-        if course != None:
-            info = "老师:"+ user.email+ "  进入课程:"+ course.course_name+ "  课程Code:"+ course_code
-            print(info)
+        if course is not None:
+            print("老师:" + user.email + "  进入课程:" + course.course_name + "  课程Code:" + course_code)
             db.session.commit()
-            return jsonify({"status": "success", "data": {"course_id":str(course.id), "info": info}})
+            return jsonify({"status": "success", "data": {"course_id": str(course.id),
+                                                          "course_name": course.course_name}})
         else:
             print(course_code)
             return jsonify({"status": "error", "data": {"info": "没有这个课程!"}})
-    except (Exception) as result:
+    except Exception as result:
         return jsonify({"status": "error", "data": {"info": str(result)}})  # 其他错误 直接塞到json里返回
 
 
 # post到 IP/teacher/query json包含token, datetime_start, datetime_end, course_id, return_type = "json" / "excel"
-@bp.route('/query', methods = ['GET'])
-def teacher_query()->json:
+@bp.route('/query', methods=['GET'])
+def teacher_query() -> json:
     try:
         token = request.headers.get("token")
         user = tokenVerify(token, "teacher")
-        if(user == None):
+        if user is None:
                 return jsonify({"status": "error", "data": {"info": "没有这个教师或您不是教师!"}})
         # 从查询字符串得到数据
         datetime_start = request.args.get("datetime_start")
@@ -114,11 +113,8 @@ def teacher_query()->json:
             return send_file(path, as_attachment = True)
         else:
             return jsonify({"status": "error", "data": {"info": "返回类型错误!"}})
-
-
-    except (Exception) as result:
+    except Exception as result:
         return jsonify({"status": "error", "data": {"info": str(result)}})  # 其他错误 直接塞到json里返回
-
 
 
 @bp.route('/query_excel', methods = ['POST'])

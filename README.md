@@ -1,5 +1,5 @@
 # SSH上传
-* ```git push git@github.com:zzzzzfj/BasicTrain.git```
+git push git@github.com:zzzzzfj/BasicTrain.git
 
 # 后端接口说明
 
@@ -131,7 +131,7 @@
 	{
 	    "data": {
 	        "course_id": "1",
-	        "info": "学生:123456@qq.com  进入课程:算法设计与分析  课程Code:CS233"
+	        "course_name": "算法设计与分析"
 	    },
 	    "status": "success"
 	}
@@ -164,9 +164,12 @@
 	```
 
 	```
-	{ 
-		"data": { "info": "评价人:123456@qq.com 分数:2 课程:组合数学" }, 
-		"status": "success" 
+	{
+	    "data": {
+	        "course_name": "组合数学",
+	        "grade": "2"
+	    },
+	    "status": "success"
 	}
 	```
 
