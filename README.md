@@ -294,71 +294,36 @@
 
 * 返回:
 
-	* column_name: []  // 列名数组
-	* Contents: [[], [], [],...]  // 内容二维数组
+	* Contents: [...]  // 列表, 每个成员为json对象
 
 * 示例
 
 	```
-	http://127.0.0.1:5000/admin/query?account_type=student&page_size=3&which_page=2
+	http://127.0.0.1:5000/admin/query?account_type=teacher&page_size=2&which_page=1
 	```
 
 	```
 	{
 	    "data": {
-	        "column_name": [
-	            "id",
-	            "email",
-	            "password",
-	            "student_number",
-	            "name",
-	            "age",
-	            "gender",
-	            "grade",
-	            "classroom",
-	            "major",
-	            "phone_number"
-	        ],
 	        "contents": [
-	            [
-	                4,
-	                "654321@qq.com",
-	                "123456789",
-	                "SA22232222",
-	                "Jone",
-	                15,
-	                null,
-	                null,
-	                null,
-	                null,
-	                "13777888888"
-	            ],
-	            [
-	                5,
-	                "654321@163.com",
-	                "123456789",
-	                "SA22672223",
-	                "Mike",
-	                20,
-	                null,
-	                null,
-	                null,
-	                null,
-	                "13777888889"
-	            ],
-	            [
-	                6,
-	                "654321@ustc.edu.cn",
-	                "123456789",
-	                "SA12222224",
-	                "ZhouTian",
-	                21,
-	                null,
-	                null,
-	                null,
-	                null,
-	                "13777888886"
-	            ]
+	            {
+	                "age": 43,
+	                "email": "222222@qq.com",
+	                "gender": "男",
+	                "id": 4,
+	                "name": "ZhouShaohua",
+	                "password": "123456789",
+	                "phone_number": "13773288823"
+	            },
+	            {
+	                "age": 26,
+	                "email": "222222@163.com",
+	                "gender": "女",
+	                "id": 5,
+	                "name": "TianTian",
+	                "password": "123456789",
+	                "phone_number": "13877876889"
+	            }
 	        ]
 	    },
 	    "status": "success"

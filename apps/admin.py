@@ -38,8 +38,14 @@ def admin_query() -> json:
             column_name = AdminModel.__table__.columns.keys()
         contents = []
         for account in account_list.fetchall():
-            contents.append(list(account))
-        return jsonify({"status": "success", "data": {"column_name": column_name, "contents": contents}})
+            content = {}
+            for i, val in enumerate(account):
+                if val:
+                    content[column_name[i]] = val
+                else:
+                    content[column_name[i]] = "null"
+            contents.append(content)
+        return jsonify({"status": "success", "data": {"contents": contents}})
     except Exception as result:
         return jsonify({"status": "error", "data": {"info": str(result)}})
 
