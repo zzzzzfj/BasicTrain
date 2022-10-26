@@ -1,48 +1,56 @@
-from flask import Flask, jsonify, url_for, request, render_template
+from flask import Flask, request, jsonify, json, g
 from flask_migrate import Migrate
-import json
-from models import User
 import config
-from apps import student_bp, teacher_bp
-from exts import db
-
+from apps import student_bp, teacher_bp, admin_bp, login_bp
+from exts import db, mail
+from models import LoginModel
 
 app = Flask(__name__)
 app.config.from_object(config)  # 导入配置
 db.init_app(app)  # 绑定数据库
+mail.init_app(app)  # 绑定邮箱
 migrate = Migrate(app, db)  # 数据库更新工具
 
 # 蓝图组装
 app.register_blueprint(student_bp)
 app.register_blueprint(teacher_bp)
-
-
-# post一个json, 包含 email, password, user_type 三项
-@app.route('/login', methods=['GET', 'POST'])
-def login() -> json:
-    if request.method == 'GET':
-        return render_template("login.html")
-    else:
-        data = request.get_data()
-        if data is None or len(data) == 0:
-            return jsonify({"status": "error", "data": {"info": "空内容"}})
-        try:
-            data = json.loads(data)
-            print("登陆尝试: ", request.remote_addr, "\n用户数据", data)
-            user = User.query.filter_by(email=data['email'],
-                                        password=data['password'],
-                                        user_type=data['user_type']).first()
-            if user is None:
-                return jsonify({"status": "success", "data": {"token": str(user.id)}})
-            else:
-                return jsonify({"status": "error", "data": {"info": "账号或密码错误"}})
-        except Exception as result:
-            return jsonify({"status": "error", "data": {"info": str(result)}})  # 其他错误 直接塞到json里返回
+app.register_blueprint(admin_bp)
+app.register_blueprint(login_bp)
 
 
 @app.route("/")
 def index() -> str:
     return "主页"
+
+
+@app.before_request
+def before_request():
+    if len(request.path) >= 6 and request.path[:6] == "/login":
+        return None  # 有问题还
+    try:
+        token = request.headers.get("token")
+        if not token:
+            return jsonify({"status": "error", "data": {"info": "请先登录"}}), 401
+        user = LoginModel.query.filter_by(token=token).first()
+        if user:
+            g.user_id = user.user_id
+            g.user_type = user.user_type
+            return None
+        else:
+            return jsonify({"status": "error", "data": {"info": "登陆信息失效! 您可能在其他设备登陆!"}}), 401
+    except Exception as result:
+        return jsonify({"status": "error", "data": {"info": str(result)}})
+
+
+@app.route("/logout", methods=["post"])
+def logout() -> json:
+    logout_account = LoginModel.query.filter_by(user_id=g.user_id,
+                                                user_type=g.user_type).first()
+    if logout_account:
+        db.session.delete(logout_account)
+        db.session.commit()
+        return jsonify({"status": "success"})
+    return jsonify({"status": "error", "data": {"info": "理论上不会出这个错"}}), 401
 
 
 if __name__ == '__main__':

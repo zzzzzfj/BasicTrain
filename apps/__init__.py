@@ -6,3 +6,5 @@
 
 from .student import bp as student_bp
 from .teacher import bp as teacher_bp
+from .admin import bp as admin_bp
+from .login import bp as login_bp
