@@ -334,7 +334,80 @@
 
 ### 管理员添加账户
 
+* 发送
 
+	* address = IP/admin/add_account
+	* method = POST
+	* json
+		* account_type
+		* 其他属性
+			* 学生
+				* 必有: email, password, name, student_number
+				* 可选: age, gender, grade, classroom, major, phone_number
+			* 教师/管理员
+				* 必有: email, password, name
+				* 可选: age, gender, phone_number
+
+* 返回:
+
+	* 成功或失败, 以及用户id (便于测试删除功能)
+
+* 例:
+
+	```
+	{
+	    "account_type":"student",
+	    "email":"111113@qq.com",
+	    "password":"123456789",
+	    "name":"WOTM",
+	    "student_number":"SA2314153525",
+	    "gender":"男"   
+	}
+	```
+
+	```
+	{
+	    "data": {
+	        "user_id": 27
+	    },
+	    "status": "success"
+	}
+	```
+
+	
+
+
+
+### 管理员删除账户
+
+* 发送
+
+	* address = IP/admin/delete_account
+	* method = POST
+	* json
+		* user_type
+		* user_id
+
+* 返回:
+
+	* 成功或失败
+
+* 例:
+
+	```
+	{
+	    "account_type":"student",
+	    "user_id":25
+	}
+	```
+
+	```
+	{
+	    "status": "success"
+	}
+	```
+
+	
 
 
 
@@ -356,6 +429,186 @@
 
 
 
+### 讨论区(WebSocket实现)
+
+* 接口address: http://81.70.55.211:5000
+
+* 前端demo: http://81.70.55.211:5000
+
+* 前端示例代码(js)
+
+	```JavaScript
+	
+	token1 = "pbkdf2:sha256:260000$cN9esYVIlunzqpf8$3fc61b946ead686b20dc26b9d4b96fa1ed6b59059a1e3115c7b12e9db37d0edb"
+	token2 = "pbkdf2:sha256:260000$l1hAFHbhXs7oDtqD$e12b3aa3e6a0dab11dff3b59afb3ae67e0ad508ea861900d6cbf935c09177d0c"
+	
+	$(document).ready(function() {
+	
+	    // header带token, 连接时根据token会返回user_name, 以后每次发消息请带上该user_name
+	    var socket = io({
+	      extraHeaders: {
+	        "token": token2
+	      }
+	    });
+	    var user_name = ""
+	
+	    // 连接返回消息
+	    socket.on("connected",function (msg) {
+	        if(msg.status=='success'){
+	            user_name=msg.user_name
+	            $('#chatContent').append('<li>连接成功!</li>')
+	        }else{
+	            alert("您的登陆信息有误, 请在header加上有效token!")
+	        }
+	    })
+	
+	    // 加入房间请求, 房间号为roomNum, 即课程id
+	    $('form#joinRoom').submit(function(event) {
+	        socket.emit('joinRoom', {room: $('#roomNum').val(), user_name: user_name})
+	        return false;
+	    });
+	    // 离开房间请求, 房间号为roomNum
+	    $('#leave_room').on('click', function (event) {
+	        socket.emit('leaveRoom', {room: $('#roomNum').val(), user_name: user_name})
+	        return false;
+	    });
+	
+	    // 广播给房间内所有人的加入房间信息
+	    socket.on("roomJoined", function (msg, cb) {
+	        $('#chatContent').append('<li>'+msg.user_name+'已加入房间'+msg.room+'</li>')
+	    })
+	
+	    // 个人离开房间的信息
+	    socket.on("roomLeftPersonal", function (msg) {
+	        console.log(msg.room)
+	        $('#chatContent').append('<li>'+'您已离开房间'+'</li>')
+	    })
+	    // 广播给房间内所有人的离开房间信息
+	    socket.on("roomLeft", function (msg, cb) {
+	        $('#chatContent').append('<li>'+msg.user_name+'已离开房间'+msg.room+'</li>')
+	    })
+	
+	    
+	    // 聊天框发送信息
+	    $('form#submitForm').submit(function(event) {
+	        socket.emit('send_message', {data: $('#broadcast_data').val(),
+	                                     room: $('#roomNum').val(),
+	                                     user_name: user_name
+	        })
+	        return false;
+	     })
+	    // 接收信息
+	    socket.on('message', function (msg) {
+	        $('#chatContent').append('<li>'+msg.user_name+': '+msg.data+'</li>')
+	    })
+	
+	
+	})
+	```
+
+* 连接
+
+	* 说明: header请带上有效token
+
+	* 连接返回信息: `connected`
+
+		* 成功
+
+			```
+			'connected',  
+			{
+				'status': 'success',
+				'user_name': user_row.name
+			}
+			```
+
+			> connected为消息名, {}内为消息内容
+
+		* 失败
+
+			```
+			'connected', {'status': 'error'}
+			```
+
+	* 建议
+
+		* 请记录下返回的user_name, 以后每次发送消息需要带上(给别的用户看)
+
+* 进入及退出房间
+
+	* 说明: 房间号即为课程id, 仅同房间可以接收到消息
+
+		* 在加入课程时根据课程id进入时间
+
+	* 进入房间
+
+		* 发送
+
+			* 类型: 'joinRoom'
+			* 内容: 'room'(课程号)
+
+		* 返回 (该房间内所有人会收到)
+
+			```
+			"roomJoined", 
+			{
+			        "room": 1,
+			        'user_name': '李华'
+			}
+			```
+
+	* 退出房间
+
+		* 发送
+
+			* 类型: 'leaveRoom'
+			* 内容: 'user_name',  'room'(课程号)
+
+		* 返回
+
+			* 发送者会收到
+
+				```
+				"roomLeftPersonal", {
+				    'user_name': '李华'
+				    "room": 23
+				}
+				```
+
+			* 其他人会收到
+
+				```
+				"roomLeft", {
+				    'user_name': '李华'
+				    "room": 23
+				}
+				```
+
+			
+
+* 发送与接收消息
+
+	* 发送消息
+
+		* 类型: 'send_message'
+		* 内容: 'user_name', 'room',  'data'
+
+	* 返回(同房间内所有人会收到)
+
+		```
+		'message', 
+		{
+			'data': '你好',
+		    'user_name': '李华'
+		 }
+		```
+
+		
+
+
+
+
+
 
 
 # 功能更新
@@ -369,40 +622,19 @@
 		* 登陆页面会返回token(根据user_id, user_type, 当前时间 哈希加密的长字符串)
 		* 其他页面均需该token才能访问, 否则返回401状态码(要求重定向到登陆页面)
 
-* 图表功能: 查询每个分数的总人数
-
-	* 例
-
-		```
-		{
-		    "data": {
-		        "average_grade": "2.461538461538461538461538462",
-		        "expression_num": "13",
-		        "number_of_grade1": "2",
-		        "number_of_grade2": "7",
-		        "number_of_grade3": "2",
-		        "number_of_grade4": "1",
-		        "number_of_grade5": "0",
-		        "number_of_grade6": "1",
-		        "student_num": "5",
-		        "variance": "21.23076923076923076923076922"
-		    },
-		    "status": "success"
-		}
-		```
-
+* 教师查询功能: 增加查询每个分数的总人数
 * 邮箱登陆: `/login/email_captcha`接口
-
-* 管理员账号管理:  `IP/admin`各接口
-
-	* 查询
-	* 添加 / 删除: 等v3再做
-
+* 管理员账号管理:  `IP/admin/query`查询功能
 * 退出登陆功能: `/logout`接口
 
-	* 清除登录表中该项
 
 
+### v3
+
+* 管理员账号管理: 
+
+	* 添加 / 删除功能
+* 讨论区功能(socketio)
 
 
 

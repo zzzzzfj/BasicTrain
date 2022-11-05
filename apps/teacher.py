@@ -69,7 +69,11 @@ def teacher_query() -> json:
             AND UNIX_TIMESTAMP(date_time) >= {1}
             AND UNIX_TIMESTAMP(date_time) <= {2}
         '''.format(course_id, datetime_start, datetime_end)
-        average_grade = db.session.execute(sql3).first()[0] / expression_num
+        if expression_num:
+            average_grade = db.session.execute(sql3).first()[0] / expression_num
+        else:
+            average_grade = 0
+
 
         sql4 = '''
             SELECT grade

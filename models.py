@@ -21,8 +21,8 @@ class StudentModel(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(200), nullable=False, unique=True)
     password = db.Column(db.String(200), nullable=False)
-    student_number = db.Column(db.String(200), nullable=False, unique=True)
     name = db.Column(db.String(200), nullable=False)
+    student_number = db.Column(db.String(200), nullable=False, unique=True)
     age = db.Column(db.Integer)
     gender = db.Column(db.String(5))
     grade = db.Column(db.String(5))
@@ -43,7 +43,7 @@ class TeacherModel(db.Model):
     phone_number = db.Column(db.String(20))
 
 
-# 教师表: id, 账号(邮箱), 密码, 姓名、年龄、性别、联系方式等
+# 管理员表: id, 账号(邮箱), 密码, 姓名、年龄、性别、联系方式等
 class AdminModel(db.Model):
     __tablename__ = "admin"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)

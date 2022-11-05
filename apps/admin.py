@@ -53,16 +53,53 @@ def admin_query() -> json:
 # 参数:
 @bp.route('/add_account', methods=['POST'])
 def admin_add_account() -> json:
-    try:
-        pass
-    except Exception as result:
-        return jsonify({"status": "error", "data": {"info": str(result)}})
+        if g.user_type != 'admin':
+            return jsonify({"status": "error", "data": {"info": "您不是管理员, 请自重!"}})
+        try:
+            data = request.get_data()
+            data = json.loads(data)
+            account_type = data['account_type']
+            if account_type == 'student':
+                user = StudentModel()
+            elif account_type == 'teacher':
+                user = TeacherModel()
+            elif account_type == 'admin':
+                user = AdminModel()
+            else:
+                return jsonify({"status": "error", "data": {"info": "错误的用户种类"}})
+            for key, value in data.items():
+                if hasattr(user, key):
+                    user.__setattr__(key, value)
+            db.session.add(user)
+            db.session.commit()
+            return jsonify({"status": "success", "data": {"user_id": user.id}})
+        except Exception as result:
+            return jsonify({"status": "error", "data": {"info": str(result)}})
 
 
 # 参数:
 @bp.route('/delete_account', methods=['POST'])
 def admin_delete_account() -> json:
-    try:
-        pass
-    except Exception as result:
-        return jsonify({"status": "error", "data": {"info": str(result)}})
+        if g.user_type != 'admin':
+            return jsonify({"status": "error", "data": {"info": "您不是管理员, 请自重!"}})
+        try:
+            data = request.get_data()
+            data = json.loads(data)
+            account_type, user_id = data['account_type'], data['user_id']
+            if account_type == 'student':
+                user = StudentModel.query.filter_by(id=user_id).first()
+            elif account_type == 'teacher':
+                user = TeacherModel.query.filter_by(id=user_id).first()
+            elif account_type == 'admin':
+                user = AdminModel.query.filter_by(id=user_id).first()
+            else:
+                return jsonify({"status": "error", "data": {"info": "错误的用户种类"}})
+            if user:
+                db.session.delete(user)
+                db.session.commit()
+                return jsonify({"status": "success"})
+            else:
+                return jsonify({"status": "error", "data": {"info": "没有该用户"}})
+
+        except Exception as result:
+            return jsonify({"status": "error", "data": {"info": str(result)}})
